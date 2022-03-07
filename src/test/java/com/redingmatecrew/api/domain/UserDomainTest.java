@@ -45,6 +45,22 @@ public class UserDomainTest {
         assertThat(saveIdx).isEqualTo(1);
     }
 
+    @Test
+    void 유저_객체_가져오기() {
+        // given
+        UserService service = new UserService();
+        User saveUser = service.insertNewUser("테스트유저1");
+
+        // when
+        User findUser = service.getUser(1);
+        User nullUser = service.getUser(2);
+
+        // then
+        assertThat(findUser.getUsername()).isEqualTo(saveUser.getUsername());
+        assertThat(nullUser).isEqualTo(null);
+
+    }
+
     // application 계층의 서비스
     private class UserService {
 
@@ -58,6 +74,10 @@ public class UserDomainTest {
 
         public User insertUser(String userId, String password, String username) {
             return repository.save(new User(userId, passwordEncoder.encode(password), username));
+        }
+
+        public User getUser(long idx) {
+            return repository.findByIdx(idx);
         }
     }
 
@@ -111,6 +131,8 @@ public class UserDomainTest {
     // 도메인 리포지토리 인터페이스
     private interface UserRepository {
         User save(User user);
+
+        User findByIdx(long idx);
     }
 
     // 도메인 리포지토리 인터페이스 구현
@@ -128,6 +150,11 @@ public class UserDomainTest {
             userMap.put(userId, saveUser);
             userId++;
             return saveUser;
+        }
+
+        @Override
+        public User findByIdx(long idx) {
+            return userMap.get(idx);
         }
     }
 
