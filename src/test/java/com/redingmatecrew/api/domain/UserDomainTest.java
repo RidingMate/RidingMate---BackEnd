@@ -18,4 +18,27 @@ public class UserDomainTest {
         Assertions.assertThat(userId).isEqualTo(1);
     }
 
+    // application 계층의 서비스
+    private class UserService {
+
+        public User insertNewUser(String username) {
+            return new User(username);
+        }
+    }
+
+    // 도메인
+    private class User {
+        private long userId;
+        private String username;
+
+        public User(String username) {
+            this.userId = 1;
+            this.username = username;
+        }
+
+        public long getUserId() {
+            return userId;
+        }
+    }
+
 }
