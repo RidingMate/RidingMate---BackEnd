@@ -2,9 +2,13 @@ package com.redingmatecrew.api.domain;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserDomainTest {
 
@@ -15,10 +19,30 @@ public class UserDomainTest {
 
         // when : 테스트 대상
         User user = service.insertNewUser("회원명1");
-        long userId = user.getUserId();
+        long userId = user.getIdx();
 
         // then : 테스트 검증
-        Assertions.assertThat(userId).isEqualTo(1);
+        assertThat(userId).isEqualTo(1);
+    }
+
+    @Test
+    void 신규_유저_아이디_비번_등록() {
+        // given
+        UserService service = new UserService();
+        String userId = "test1";
+        String password = "test1!";
+        String username = "테스트유저1";
+
+        // when
+        User saveUser = service.insertUser(userId, password, username);
+        String saveUsername = saveUser.getUsername();
+        long saveIdx = saveUser.getIdx();
+        String saveUserId = saveUser.getUserId();
+
+        // then
+        assertThat(saveUsername).isEqualTo(username);
+        assertThat(saveUserId).isEqualTo(userId);
+        assertThat(saveIdx).isEqualTo(1);
     }
 
     // application 계층의 서비스
@@ -26,32 +50,61 @@ public class UserDomainTest {
 
         private UserRepository repository = new MemoryUserRepository();
 
+        private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
         public User insertNewUser(String username) {
             return repository.save(new User(username));
+        }
+
+        public User insertUser(String userId, String password, String username) {
+            return repository.save(new User(userId, passwordEncoder.encode(password), username));
         }
     }
 
     // 도메인
     private class User {
-        private long userId;
+        private long idx;
         private String username;
+        private String userId;
+        private String password;
 
         public User(String username) {
-            this.userId = 1;
+            this.idx = 1;
             this.username = username;
         }
 
-        public User(long userId, String username) {
+        public User(long idx, String username) {
+            this.idx = idx;
+            this.username = username;
+        }
+
+        public User(String userId, String password, String username) {
             this.userId = userId;
+            this.password = password;
             this.username = username;
         }
 
-        public long getUserId() {
-            return userId;
+        public User(long idx, String userId, String password, String username) {
+            this.idx = idx;
+            this.userId = userId;
+            this.password = password;
+            this.username = username;
+        }
+
+        public long getIdx() {
+            return idx;
         }
 
         public String getUsername() {
             return username;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public String getPassword() {
+            return password;
         }
     }
 
@@ -70,7 +123,8 @@ public class UserDomainTest {
 
         @Override
         public User save(User user) {
-            User saveUser = new User(userId, user.getUsername());
+            // 실제 구현할때는 User로 User를 만들지 않고 User 도메인으로 영속성 객체(ex. Jpa Entity)를 만들 예정
+            User saveUser = new User(userId, user.getUserId(), user.getPassword(), user.getUsername());
             userMap.put(userId, saveUser);
             userId++;
             return saveUser;
