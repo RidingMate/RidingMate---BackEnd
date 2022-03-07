@@ -3,6 +3,9 @@ package com.redingmatecrew.api.domain;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class UserDomainTest {
 
     @Test
@@ -21,8 +24,10 @@ public class UserDomainTest {
     // application 계층의 서비스
     private class UserService {
 
+        private UserRepository repository = new MemoryUserRepository();
+
         public User insertNewUser(String username) {
-            return new User(username);
+            return repository.save(new User(username));
         }
     }
 
@@ -36,9 +41,41 @@ public class UserDomainTest {
             this.username = username;
         }
 
+        public User(long userId, String username) {
+            this.userId = userId;
+            this.username = username;
+        }
+
         public long getUserId() {
             return userId;
         }
+
+        public String getUsername() {
+            return username;
+        }
     }
+
+    // 도메인 리포지토리 인터페이스
+    private interface UserRepository {
+        User save(User user);
+    }
+
+    // 도메인 리포지토리 인터페이스 구현
+    private class MemoryUserRepository implements UserRepository {
+        // 테스트를 위한 임시 메모리 저장소
+        // 실제 구현할때는 persistence 저장소로 변경
+        private Map<Long, User> userMap = new HashMap<>();
+
+        private long userId = 1;
+
+        @Override
+        public User save(User user) {
+            User saveUser = new User(userId, user.getUsername());
+            userMap.put(userId, saveUser);
+            userId++;
+            return saveUser;
+        }
+    }
+
 
 }
