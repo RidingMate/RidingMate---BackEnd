@@ -1,7 +1,7 @@
 package com.redingmatecrew.api.domain.aggregate;
 
 import com.redingmatecrew.api.domain.value.consts.UserRole;
-import com.sun.istack.NotNull;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -9,15 +9,15 @@ public class User {
 
     private Long idx;
 
-    @NotNull
+    @NonNull
     private String userId;
 
-    @NotNull
+    @NonNull
     private String password;
 
-    @NotNull
+    @NonNull
     private String username;
 
-    @NotNull
+    @NonNull
     private UserRole role;
 }
