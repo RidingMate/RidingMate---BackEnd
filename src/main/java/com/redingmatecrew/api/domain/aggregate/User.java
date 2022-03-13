@@ -31,4 +31,13 @@ public class User {
 
     @NonNull
     private UserRole role;
+
+    // 성명, 연락처, 성별, 생일 수정
+    public User updateUserInfo(String username, String userTel, Gender gender, String birthday) {
+        this.username = username;
+        this.userTel = userTel;
+        this.gender = gender;
+        this.birthday = birthday;
+        return this;
+    }
 }
