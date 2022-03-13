@@ -25,4 +25,17 @@ public class UserRepositoryImplByJpa implements UserRepository {
     public User findByIdx(long idx) {
         return userRepository.findByIdx(idx);
     }
+
+    @Override
+    public User update(User user) {
+        // TODO : 닉네임, 성별, 연락처, 생일 추가
+        UserEntity userEntity = UserEntity.builder()
+                .idx(user.getIdx())
+                .userId(user.getUserId())
+                .password(user.getPassword())
+                .username(user.getUsername())
+                .role(user.getRole())
+                .build();
+        return userRepository.save(userEntity).convertEntityToDomain();
+    }
 }
