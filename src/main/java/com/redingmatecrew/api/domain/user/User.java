@@ -1,4 +1,4 @@
-package com.redingmatecrew.api.domain.aggregate;
+package com.redingmatecrew.api.domain.user;
 
 import com.redingmatecrew.api.domain.value.consts.Gender;
 import com.redingmatecrew.api.domain.value.consts.UserRole;
