@@ -1,4 +1,4 @@
-package com.redingmatecrew.api.domain.repository;
+package com.redingmatecrew.api.domain.user;
 
 import com.redingmatecrew.api.domain.aggregate.User;
 
