@@ -1,6 +1,6 @@
 package com.redingmatecrew.api.spring.bean;
 
-import com.redingmatecrew.api.domain.repository.UserRepository;
+import com.redingmatecrew.api.domain.user.UserRepository;
 import com.redingmatecrew.api.infra.persist.jpa.repository.JpaUserRepository;
 import com.redingmatecrew.api.infra.persist.jpa.repository.UserRepositoryImplByJpa;
 import org.springframework.beans.factory.annotation.Autowired;

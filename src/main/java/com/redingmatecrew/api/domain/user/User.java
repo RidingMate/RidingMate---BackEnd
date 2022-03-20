@@ -1,7 +1,5 @@
 package com.redingmatecrew.api.domain.user;
 
-import com.redingmatecrew.api.domain.value.consts.Gender;
-import com.redingmatecrew.api.domain.value.consts.UserRole;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

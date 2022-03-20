@@ -1,7 +1,7 @@
 package com.redingmatecrew.api.infra.persist.jpa.entity;
 
-import com.redingmatecrew.api.domain.aggregate.User;
-import com.redingmatecrew.api.domain.value.consts.UserRole;
+import com.redingmatecrew.api.domain.user.User;
+import com.redingmatecrew.api.domain.user.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
