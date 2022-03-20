@@ -1,6 +1,5 @@
-package com.redingmatecrew.api.domain.aggregate;
+package com.redingmatecrew.api.domain.board;
 
-import com.redingmatecrew.api.domain.value.consts.BoardType;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

@@ -1,7 +1,7 @@
 package com.redingmatecrew.api.infra.persist.jpa.repository;
 
-import com.redingmatecrew.api.domain.aggregate.User;
-import com.redingmatecrew.api.domain.repository.UserRepository;
+import com.redingmatecrew.api.domain.user.User;
+import com.redingmatecrew.api.domain.user.UserRepository;
 import com.redingmatecrew.api.infra.persist.jpa.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 

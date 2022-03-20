@@ -1,4 +1,4 @@
-package com.redingmatecrew.api.domain.value.consts;
+package com.redingmatecrew.api.domain.user;
 
 public enum UserRole {
 

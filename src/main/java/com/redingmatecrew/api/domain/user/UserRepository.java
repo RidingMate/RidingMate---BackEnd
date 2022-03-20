@@ -1,6 +1,4 @@
-package com.redingmatecrew.api.domain.repository;
-
-import com.redingmatecrew.api.domain.aggregate.User;
+package com.redingmatecrew.api.domain.user;
 
 public interface UserRepository {
 

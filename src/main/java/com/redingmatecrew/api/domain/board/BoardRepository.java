@@ -1,7 +1,5 @@
-package com.redingmatecrew.api.domain.repository;
+package com.redingmatecrew.api.domain.board;
 
-import com.redingmatecrew.api.domain.aggregate.Board;
-import com.redingmatecrew.api.domain.value.consts.BoardType;
 import org.springframework.data.domain.Page;
 
 public interface BoardRepository {
