@@ -1,6 +1,8 @@
 package com.redingmatecrew.api.infra.persist.jpa.entity;
 
 import com.redingmatecrew.api.domain.bike.Bike;
+import com.redingmatecrew.api.domain.bike.oiling.Oiling;
+import com.redingmatecrew.api.domain.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -24,17 +26,21 @@ public class OilingEntity {
     private Long idx;
 
     @Column(name = "previous_mileage")
-    private String previousMileage;
+    private int previousMileage;
 
     @Column(name = "recent_mileage")
-    private String recentMileage;
+    private int recentMileage;
 
     @Column(name = "fuel_volume")
-    private String fuelVolume;
+    private int fuelVolume;
 
     @Column(name = "fuelAmount")
-    private String fuelAmount;
+    private int fuelAmount;
 
     // TODO : 주유 날짜 기록해야함
 
+
+    public Oiling convertEntityToDomain() {
+        return new Oiling(this.previousMileage, this.recentMileage, this.fuelVolume, this.fuelAmount);
+    }
 }
