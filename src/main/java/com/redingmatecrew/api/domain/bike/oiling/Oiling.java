@@ -25,4 +25,6 @@ public class Oiling {
     //주유 가격
     @NonNull
     private int fuelAmount;
+
+    //TODO : 수정없이 진행해야할듯
 }
