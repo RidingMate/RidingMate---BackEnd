@@ -1,4 +1,4 @@
-package com.redingmatecrew.api.infra.persist.jpa.repository;
+package com.redingmatecrew.api.infra.persist.jpa.repository.user;
 
 import com.redingmatecrew.api.domain.user.UserRepository;
 import com.redingmatecrew.api.infra.persist.jpa.entity.UserEntity;

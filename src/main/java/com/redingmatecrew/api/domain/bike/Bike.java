@@ -40,6 +40,7 @@ public class Bike {
     @NonNull
     private int countMaintenance;
 
+
     public Bike updateBikeInfo(String company, String modelName, int year){
         this.company = company;
         this.modelName = modelName;
