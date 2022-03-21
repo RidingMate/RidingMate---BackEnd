@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 @Entity
 @Builder
-@Table(name = "RMC_BIke")
+@Table(name = "RMC_BIKE")
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicInsert
@@ -34,8 +34,8 @@ public class BikeEntity {
     @Column(name = "year")
     private int year;
 
-    @Column(name = "distance_driven")
-    private int distanceDriven;
+    @Column(name = "mileage")
+    private int mileage;
 
     @Column(name = "fuel_efficiency")
     private int fuelEfficiency;
@@ -47,7 +47,7 @@ public class BikeEntity {
     private int countMaintenance;
 
     public Bike convertEntityToDomain() {
-        return new Bike(this.company, this.modelName, this.year, this.distanceDriven, this.fuelEfficiency, this.countOiling, this.countMaintenance);
+        return new Bike(this.company, this.modelName, this.year, this.mileage, this.fuelEfficiency, this.countOiling, this.countMaintenance);
     }
 
 }

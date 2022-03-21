@@ -26,7 +26,7 @@ public class Bike {
 
     //현재 주행거리
     @NonNull
-    private int distanceDriven;
+    private int mileage;
 
     //연비
     @NonNull
@@ -49,7 +49,7 @@ public class Bike {
     }
 
     public Bike updateBikeOiling(int distanceDriven, int fuelEfficiency, int countOiling){
-        this.distanceDriven = distanceDriven;
+        this.mileage = distanceDriven;
         this.fuelEfficiency = fuelEfficiency;
         this.countOiling = countOiling;
         return this;
