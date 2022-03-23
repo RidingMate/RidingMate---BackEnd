@@ -19,16 +19,23 @@ public class User {
     @NonNull
     private String username;
 
+    @NonNull
     private String nickname;
+
+    @NonNull
+    private String userEmail;
+
+    @NonNull
+    private UserType type;
+
+    @NonNull
+    private UserRole role;
 
     private Gender gender;
 
     private String userTel;
 
     private String birthday;
-
-    @NonNull
-    private UserRole role;
 
     // 성명, 연락처, 성별, 생일 수정
     public User updateUserInfo(String username, String userTel, Gender gender, String birthday) {
