@@ -2,6 +2,7 @@ package com.redingmatecrew.api.infra.persist.jpa.entity;
 
 import com.redingmatecrew.api.domain.user.User;
 import com.redingmatecrew.api.domain.user.UserRole;
+import com.redingmatecrew.api.domain.user.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -36,8 +37,9 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    // TODO : 값 적용 필요
     public User convertEntityToDomain() {
-        return new User(this.userId, this.password, this.username, this.role);
+        return new User(this.userId, this.password, this.username, "", "", UserType.WEB, this.role);
     }
 
 }
