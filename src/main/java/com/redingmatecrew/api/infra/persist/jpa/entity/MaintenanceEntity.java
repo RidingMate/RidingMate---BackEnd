@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Entity
 @Builder
-@Table(name = "RMC_BIKE")
+@Table(name = "RMC_MAINTENANCE")
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicInsert
