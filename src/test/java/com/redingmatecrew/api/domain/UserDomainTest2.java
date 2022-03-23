@@ -1,11 +1,16 @@
 package com.redingmatecrew.api.domain;
 
-import com.redingmatecrew.api.domain.user.*;
+import com.redingmatecrew.api.domain.user.User;
+import com.redingmatecrew.api.domain.user.UserRepository;
+import com.redingmatecrew.api.domain.user.UserRole;
+import com.redingmatecrew.api.domain.user.UserType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserDomainTest2 {
 
@@ -23,6 +28,67 @@ public class UserDomainTest2 {
         User findUser = userService.getUserByIdx(1);
         Assertions.assertThat(findUser.getUserId()).isEqualTo("test123");
 
+    }
+
+    @Test
+    void 회원가입_실패_userId() {
+        // given
+        UserService userService = new UserService();
+        SaveUserDto nullUserIdDto = new SaveUserDto(null, "12345", "테스트 유저", "테스트 닉네임", "test@test.com", UserType.WEB);
+        SaveUserDto emptyUserIdDto = new SaveUserDto("", "12345", "테스트 유저", "테스트 닉네임", "test@test.com", UserType.WEB);
+
+        // when
+        // then
+        assertThrows(NullPointerException.class, () -> {
+            userService.save(nullUserIdDto);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            userService.save(emptyUserIdDto);
+        });
+    }
+
+    @Test
+    void 회원가입_실패_password() {
+        UserService userService = new UserService();
+        SaveUserDto nullPasswordDto = new SaveUserDto("test123", null, "테스트 유저", "테스트 닉네임", "test@test.com", UserType.WEB);
+        SaveUserDto emptyPasswordDto = new SaveUserDto("test123", "", "테스트 유저", "테스트 닉네임", "test@test.com", UserType.WEB);
+
+        assertThrows(NullPointerException.class, () -> {
+            userService.save(nullPasswordDto);
+        });
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            userService.save(emptyPasswordDto);
+        });
+    }
+
+    @Test
+    void 회원가입_실패_nickname() {
+        UserService userService = new UserService();
+        SaveUserDto nullNicknameDto = new SaveUserDto("test123", "12345", "테스트 유저", null, "test@test.com", UserType.WEB);
+        SaveUserDto emptyNicknameDto = new SaveUserDto("test123", "12345", "테스트 유저", "", "test@test.com", UserType.WEB);
+
+        assertThrows(NullPointerException.class, () -> {
+            userService.save(nullNicknameDto);
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            userService.save(emptyNicknameDto);
+        });
+    }
+
+    @Test
+    void 회원가입_실패_email() {
+        UserService userService = new UserService();
+        SaveUserDto nullEmailDto = new SaveUserDto("test123", "12345", "테스트 유저", "테스트 닉네임", null, UserType.WEB);
+        SaveUserDto emptyEmailDto = new SaveUserDto("test123", "12345", "테스트 유저", "테스트 닉네임", "", UserType.WEB);
+
+        assertThrows(NullPointerException.class, () -> {
+            userService.save(nullEmailDto);
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            userService.save(emptyEmailDto);
+        });
     }
 
     @Test
@@ -49,6 +115,39 @@ public class UserDomainTest2 {
         private MemoryUserRepository userRepository = new MemoryUserRepository();
 
         public void save(SaveUserDto dto) {
+            // 이 예외들을 도메인 생성자로 옮기기
+            if (dto.getUserId() == null) {
+                throw new NullPointerException("아이디는 필수 값입니다.");
+            }
+
+            if (dto.getUserId().equals("")) {
+                throw new IllegalArgumentException("아이디는 빈 문자가 될 수 없습니다.");
+            }
+
+            if (dto.getPassword() == null) {
+                throw new NullPointerException("비밀번호는 필수 값입니다.");
+            }
+
+            if (dto.getPassword().equals("")) {
+                throw new IllegalArgumentException("비밀번호는 빈 문자가 될 수 없습니다.");
+            }
+
+            if (dto.getNickname() == null) {
+                throw new NullPointerException("닉네임은 필수 값입니다.");
+            }
+
+            if (dto.getNickname().equals("")) {
+                throw new IllegalArgumentException("닉네임은 빈 문자가 될 수 없습니다.");
+            }
+
+            if (dto.getUserEmail() == null) {
+                throw new NullPointerException("이메일은 필수 값입니다.");
+            }
+
+            if (dto.getUserEmail().equals("")) {
+                throw new IllegalArgumentException("이메일은 빈 문자가 될 수 없습니다.");
+            }
+
             User user = new User(dto.userId, dto.getPassword(), dto.getUsername(), dto.getNickname(), dto.getUserEmail(), dto.getType(), UserRole.ROLE_USER);
             userRepository.save(user);
         }
