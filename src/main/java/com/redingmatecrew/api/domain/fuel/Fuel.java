@@ -1,4 +1,4 @@
-package com.redingmatecrew.api.domain.bike.oiling;
+package com.redingmatecrew.api.domain.fuel;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class Oiling {
+public class Fuel {
 
     private Long idx;
 

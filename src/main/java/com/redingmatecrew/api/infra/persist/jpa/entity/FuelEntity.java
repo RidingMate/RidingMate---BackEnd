@@ -1,8 +1,6 @@
 package com.redingmatecrew.api.infra.persist.jpa.entity;
 
-import com.redingmatecrew.api.domain.bike.Bike;
-import com.redingmatecrew.api.domain.bike.oiling.Oiling;
-import com.redingmatecrew.api.domain.user.User;
+import com.redingmatecrew.api.domain.fuel.Fuel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -13,12 +11,12 @@ import javax.persistence.*;
 
 @Entity
 @Builder
-@Table(name = "RMC_BIKE")
+@Table(name = "RMC_FUEL")
 @NoArgsConstructor
 @AllArgsConstructor
 @DynamicInsert
 @DynamicUpdate
-public class OilingEntity {
+public class FuelEntity {
 
     @Id
     @Column(name = "idx")
@@ -40,7 +38,7 @@ public class OilingEntity {
     // TODO : 주유 날짜 기록해야함
 
 
-    public Oiling convertEntityToDomain() {
-        return new Oiling(this.previousMileage, this.recentMileage, this.fuelVolume, this.fuelAmount);
+    public Fuel convertEntityToDomain() {
+        return new Fuel(this.previousMileage, this.recentMileage, this.fuelVolume, this.fuelAmount);
     }
 }
