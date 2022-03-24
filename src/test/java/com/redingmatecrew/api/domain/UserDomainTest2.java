@@ -1,15 +1,13 @@
 package com.redingmatecrew.api.domain;
 
-import com.redingmatecrew.api.domain.user.User;
-import com.redingmatecrew.api.domain.user.UserRepository;
-import com.redingmatecrew.api.domain.user.UserRole;
-import com.redingmatecrew.api.domain.user.UserType;
+import com.redingmatecrew.api.domain.user.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserDomainTest2 {
@@ -26,7 +24,7 @@ public class UserDomainTest2 {
 
         // then
         User findUser = userService.getUserByIdx(1);
-        Assertions.assertThat(findUser.getUserId()).isEqualTo("test123");
+        assertThat(findUser.getUserId()).isEqualTo("test123");
 
     }
 
@@ -104,10 +102,22 @@ public class UserDomainTest2 {
     @Test
     void 회원수정() {
         // given
+        UserService userService = new UserService();
+        SaveUserDto dto = new SaveUserDto("test123", "12345", "테스트 유저", "테스트 닉네임", "test@test.com", UserType.WEB);
+        userService.save(dto);
+
+        long userIdx = 1;
+        UpdateUserDto updateUserDto = new UpdateUserDto("수정 테스트 유저", "01011112222", Gender.WOMAN, "1997-01-15");
 
         // when
+        userService.updateUserInfo(userIdx, updateUserDto);
 
         // then
+        User findUser = userService.getUserByIdx(userIdx);
+        assertThat(findUser.getUsername()).isEqualTo("수정 테스트 유저");
+        assertThat(findUser.getUserTel()).isEqualTo("01011112222");
+        assertThat(findUser.getGender()).isEqualTo(Gender.WOMAN);
+        assertThat(findUser.getBirthday()).isEqualTo("1997-01-15");
 
     }
 
@@ -155,7 +165,44 @@ public class UserDomainTest2 {
         public User getUserByIdx(long idx) {
             return userRepository.findByIdx(idx);
         }
+
+        public void updateUserInfo(long idx, UpdateUserDto dto) {
+            User findUser = userRepository.findByIdx(idx);
+            findUser.updateUserInfo(dto.getUsername(), dto.getUserTel(), dto.getGender(), dto.getBirthDay());
+            userRepository.update(findUser);
+        }
     }
+
+    private class UpdateUserDto {
+        private String username;
+        private String userTel;
+        private Gender gender;
+        private String birthDay;
+
+        public UpdateUserDto(String username, String userTel, Gender gender, String birthDay) {
+            this.username = username;
+            this.userTel = userTel;
+            this.gender = gender;
+            this.birthDay = birthDay;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public String getUserTel() {
+            return userTel;
+        }
+
+        public Gender getGender() {
+            return gender;
+        }
+
+        public String getBirthDay() {
+            return birthDay;
+        }
+    }
+
 
     private class SaveUserDto {
         private String userId;
