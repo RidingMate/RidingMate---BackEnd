@@ -92,10 +92,21 @@ public class UserDomainTest2 {
     @Test
     void 회원조회() {
         // given
+        UserService userService = new UserService();
+        SaveUserDto dto1 = new SaveUserDto("test1", "12345", "테스트 유저1", "테스트 닉네임1", "test1@test.com", UserType.WEB);
+        userService.save(dto1);
+        SaveUserDto dto2 = new SaveUserDto("test2", "12345", "테스트 유저2", "테스트 닉네임2", "test2@test.com", UserType.WEB);
+        userService.save(dto2);
 
         // when
+        User findUser1 = userService.getUserByIdx(1);
+        User findUser2 = userService.getUserByIdx(2);
+        User findUser3 = userService.getUserByIdx(3);
 
         // then
+        assertThat(findUser1.getUsername()).isEqualTo("테스트 유저1");
+        assertThat(findUser2.getUsername()).isEqualTo("테스트 유저2");
+        assertThat(findUser3).isEqualTo(null);
 
     }
 
